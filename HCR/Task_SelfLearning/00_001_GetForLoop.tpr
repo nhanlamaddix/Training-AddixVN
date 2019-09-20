@@ -1,0 +1,9 @@
+Report "results.xml"
+Var kq=0
+for (i=0; i<7; i={i}+1) {
+    if( {i} / 2 == 1){
+        break
+    }
+    Eval kq={kq}+2
+}
+Log {kq} level=severe 

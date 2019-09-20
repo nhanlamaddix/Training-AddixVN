@@ -1,0 +1,118 @@
+Var myExcelFile="D:\\guiline_weban.xlsx"
+Var exportExcelPath="D:\\WebsiteData.xls"
+Var readUrl=""
+Var companyName=""
+
+Var noElementOfPage=20
+Var totalPage=0
+Var totalElement=0
+Var errTotalElement=""
+Var errTest=""
+Var strSearch=""
+
+Var itemUrl=""
+Var page=1
+Var countElement=0
+Var errTmp=""
+// ------- Open Excel file-----------
+Excel "open" file={myExcelFile} id="idFile1"
+//if file not exist, that exit the program
+if ({_EXIT_CODE} > 0) {
+  Exit 1
+}
+
+// ------------------------------- Open sheet1
+Excel select sheet="Sheet1" id="idFile1"
+
+//Get url
+Excel select row=3 column=3 id="idFile1"
+Var readUrl={_EXCEL_CELL_VALUE}
+
+//Print to desktop
+Log {readUrl}
+
+//Open Window + r to open new chrome, then access the url above
+Press windows+r wait=1s
+Type chrome
+Press Enter wait=1s
+Paste {readUrl} wait=1s
+Press Enter wait=1s
+
+
+// ------------------------------- Procedure
+//String strSearch
+procedure ClickSearch {
+//    Click "image" passrate="50" template="input.png"
+    Click "image" passrate="100" template="input2.png"
+    Press "ctrl+a"
+    Paste {strSearch}
+
+    Click "image" passrate="50" template="button1.png"    
+}
+
+procedure ClickNextPage {
+    Click "image" passrate="100" template="NextPage.png"  
+}
+
+// ------------------------------- Open sheet2
+//Open sheet 2
+Excel select sheet=2 id="idFile1"
+Eval iter=1
+
+// Iterate over all data lines
+for (line=2; {line}<{_EXCEL_SHEET_ROWS}+1; line={line}+1) {
+  
+    # Read value from the second cell
+    Excel select row={line} column="1" id="idFile1"
+    Var strSearch={_EXCEL_CELL_VALUE}  
+//    Log {strSearch}
+
+    #Call procedure ClickSearch
+    ClickSearch strSearch  
+
+    #Copy Urljavascript:void(0)
+    Click "image" passrate="50" template="url.png"
+    Press "ctrl+a"
+    Press "ctrl+c"
+
+    Var itemUrl={_SERVER_CLIPBOARD_CONTENT_TEXT}
+    
+    Var totalPage=0
+    Var totalElement=0
+    Var page=1
+    Var countElement=0
+//    Log "================= {iter}" 
+    #Send url item to java
+    Run "../src/scripts/WebGetItemDetails.java"
+
+    if({totalPage} > 1){
+         for (pageNo=2; {pageNo}<{totalPage}+1; pageNo={pageNo}+1) {
+            ClickNextPage
+            
+            Click "image" passrate="50" template="url.png"
+            Press "ctrl+a"
+            Press "ctrl+c"
+            Var itemUrl={_SERVER_CLIPBOARD_CONTENT_TEXT}
+            
+            Var page={pageNo}
+            
+            Run "../src/scripts/WebGetItemDetails.java"
+        }
+    }
+
+    Log {itemUrl}
+    Log {strSearch}
+    Log {totalPage}
+    Log {totalElement}
+    Log {errTotalElement}
+    Log {errTest}
+    Log {errTmp}
+    Log {countElement}
+    Log {page}
+
+  Eval iter={iter}+1
+}
+
+
+// ------------------------------- Close Excel file
+Excel close  id="idFile1"

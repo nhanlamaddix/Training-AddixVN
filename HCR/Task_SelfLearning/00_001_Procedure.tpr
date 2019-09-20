@@ -1,0 +1,16 @@
+Report "results.xml"
+Var a=3
+Var b=2
+Var kq=0
+var tt=""
+procedure prc_1 {
+if ( "{tt}" == "+" ){
+   Eval kq={a}+{b}
+} else if ( "{tt}" == "-" ) {
+    Eval kq={a}-{b}
+} else {
+    Eval kq={a}*{b}
+}
+Log {kq} level=severe
+}
+prc_1 tt 
