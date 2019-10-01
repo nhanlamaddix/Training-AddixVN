@@ -1,0 +1,42 @@
+# focus to login button
+Compareto "{web_name}\login\login.png" method="search2"
+if ({_EXIT_CODE} == 0) {
+    # click login button
+    Compareto "{web_name}\login\login.png" method="search2"
+    if ({_EXIT_CODE} > 0) {
+        Var flag=1
+    }else{
+        Click "image" passrate="50" template="{web_name}\login\login.png"
+        Wait "2s"
+        # focus to textbox username
+        Compareto "{web_name}\login\username.png" method="search2"
+        
+        if ({_EXIT_CODE} > 0) {
+            Var flag=1
+        }else{
+            Click "image" passrate="50" template="{web_name}\login\username.png"
+            Var _SERVER_CLIPBOARD_CONTENT="quoc.nguyen@addix.vn"
+            Press "Ctrl+V"
+            Wait "10s"
+            Press tab
+            
+            # focus to textbox password
+            Var _SERVER_CLIPBOARD_CONTENT="addix12"
+            Press "Ctrl+V"
+            Wait "1s"
+            Press enter
+            Wait "2s"
+            
+            if({newswitch_login} >= 0){
+                Compareto "{web_name}\login\home.png" method="search2"
+                if ({_EXIT_CODE} > 0) {
+                    Var flag=1
+                }else{
+                    Click "image" passrate="50" template="{web_name}\login\home.png"
+                }
+            }
+            
+            Eval boolean_login=1
+        }
+    }
+}

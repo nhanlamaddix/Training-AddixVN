@@ -1,0 +1,30 @@
+
+Var web_name="ainow"
+
+Var url_item="https://ainow.ai/?s=AI"
+
+Var class_href="#main > div.post-list-card.cf > article > a"
+Var class_title="#content > div > main > article > header > h1"
+Var class_date_post="#content > div > main > article > header > p > time"
+Var class_source="null"
+Var class_content="#content > div > main > article > section"
+Var click_search=2
+Var class_next_page="#main > nav > ul > li"
+Var domain="https://ainow.ai"
+
+Var replace_nxt_p="null"
+Var case_display=20
+Var class_tr_dl=null
+Var click_sort=0
+Var class_gsc_cursor_page=null
+
+Var no_num=0
+
+Var total_href_req=10
+Var total_href_getted=0
+
+Var check=""
+
+Run "..\src\scripts\GetDetailItem.java"
+
+Log {check}

@@ -3,7 +3,7 @@ Var exportExcelPath="D:\\WebsiteData.xls"
 Var readUrl=""
 Var companyName=""
 
-Var noElementOfPage=20
+Var noElementOfPage=10
 Var totalPage=0
 Var totalElement=0
 Var errTotalElement=""
@@ -21,7 +21,7 @@ if ({_EXIT_CODE} > 0) {
   Exit 1
 }
 
-// ------------------------------- Open sheet1
+// ----- Open sheet1
 Excel select sheet="Sheet1" id="idFile1"
 
 //Get url
@@ -31,7 +31,7 @@ Var readUrl={_EXCEL_CELL_VALUE}
 //Print to desktop
 Log {readUrl}
 
-//Open Window + r to open new chrome, then access the url above
+//Open Window + r 
 Press windows+r wait=1s
 Type chrome
 Press Enter wait=1s
@@ -39,10 +39,9 @@ Paste {readUrl} wait=1s
 Press Enter wait=1s
 
 
-// ------------------------------- Procedure
-//String strSearch
+//  Procedure
 procedure ClickSearch {
-//    Click "image" passrate="50" template="input.png"
+
     Click "image" passrate="100" template="input2.png"
     Press "ctrl+a"
     Paste {strSearch}
@@ -54,23 +53,22 @@ procedure ClickNextPage {
     Click "image" passrate="100" template="NextPage.png"  
 }
 
-// ------------------------------- Open sheet2
 //Open sheet 2
 Excel select sheet=2 id="idFile1"
 Eval iter=1
 
-// Iterate over all data lines
+
 for (line=2; {line}<{_EXCEL_SHEET_ROWS}+1; line={line}+1) {
   
-    # Read value from the second cell
+    
     Excel select row={line} column="1" id="idFile1"
     Var strSearch={_EXCEL_CELL_VALUE}  
-//    Log {strSearch}
+
 
     #Call procedure ClickSearch
     ClickSearch strSearch  
 
-    #Copy Urljavascript:void(0)
+    
     Click "image" passrate="50" template="url.png"
     Press "ctrl+a"
     Press "ctrl+c"
@@ -81,12 +79,14 @@ for (line=2; {line}<{_EXCEL_SHEET_ROWS}+1; line={line}+1) {
     Var totalElement=0
     Var page=1
     Var countElement=0
-//    Log "================= {iter}" 
-    #Send url item to java
-    Run "../src/scripts/WebGetItemDetails.java"
+    Run "..\src\scripts\AnaJava1.java"
 
+    
     if({totalPage} > 1){
-         for (pageNo=2; {pageNo}<{totalPage}+1; pageNo={pageNo}+1) {
+       
+         //for (pageNo=2; {pageNo}<{totalPage}+1; pageNo={pageNo}+1) {
+             //Run only 2 page
+             for (pageNo=2; {pageNo}<4; pageNo={pageNo}+1) {
             ClickNextPage
             
             Click "image" passrate="50" template="url.png"
@@ -96,7 +96,8 @@ for (line=2; {line}<{_EXCEL_SHEET_ROWS}+1; line={line}+1) {
             
             Var page={pageNo}
             
-            Run "../src/scripts/WebGetItemDetails.java"
+            Run "..\src\scripts\AnaJava1.java"
+
         }
     }
 
@@ -114,5 +115,5 @@ for (line=2; {line}<{_EXCEL_SHEET_ROWS}+1; line={line}+1) {
 }
 
 
-// ------------------------------- Close Excel file
+// ------ Close Excel file
 Excel close  id="idFile1"

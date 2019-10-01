@@ -1,0 +1,13 @@
+Compareto "{web_name}\login\icon_user.png" passrate="70" method="search2"
+if ({_EXIT_CODE} > 0) {
+    Wait 1s
+}else{    
+    Click "image" passrate="50" template="{web_name}\login\icon_user.png"
+    Wait "1s"
+    Compareto "{web_name}\login\logout.png" passrate="70" method="search2"
+    if ({_EXIT_CODE} > 0) {
+        Wait 1s
+    }else{
+        Click "image" passrate="50" template="{web_name}\login\logout.png"
+    }
+}

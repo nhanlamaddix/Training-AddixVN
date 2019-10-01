@@ -1,0 +1,30 @@
+
+
+Var web_name="newswitch"
+
+Var url_item="https://newswitch.jp/tag/7"
+Var class_href="#contents > div.main > a"
+Var class_title="#contents > div > article > h1"
+Var class_date_post="#contents > div > article > div.article_date > time"
+Var class_source="null"
+Var class_content="#contents > div > article > div.article_text"
+Var click_search=1
+Var class_next_page="#container > ul > li"
+
+Var domain="https://newswitch.jp"
+Var replace_nxt_p="null"
+Var case_display=21
+Var class_tr_dl=null
+Var click_sort=0
+Var class_gsc_cursor_page=null
+
+Var no_num=0
+
+Var total_href_req=10
+Var total_href_getted=0
+
+Var check=""
+
+Run "..\src\scripts\GetDetailItem.java"
+
+Log {check}
