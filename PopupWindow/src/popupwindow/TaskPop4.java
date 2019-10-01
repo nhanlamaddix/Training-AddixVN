@@ -48,15 +48,6 @@ public class TaskPop4 {
     public void showTaskPop4(String url) {
         
         try{
-        //    URL url = new URL("https://vnexpress.net");
-        //    HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
-        //
-        //    long date = httpCon.getLastModified();
-        //    if (date == 0)
-        //      System.out.println("No last-modified information.");
-        //    else
-        //      System.out.println("Last-Modified: " + new Date(date));
-
             Connection.Response rs2 = Jsoup.connect("https://news.zing.vn")
                 .ignoreContentType(true)
                 .execute(); 

@@ -28,7 +28,8 @@ public class TaskPop1 {
 		pnelBig.add(txtNum2);
 		
                 Object [] button = {"Sum","Cancel"};
-                int x = JOptionPane.showOptionDialog(null, pnelBig, "TaskPop1", JOptionPane.YES_NO_OPTION, JOptionPane.NO_OPTION, null, button, button[0]);
+                int x = JOptionPane.showOptionDialog(null, pnelBig, "TaskPop1", 
+                        JOptionPane.YES_NO_OPTION, JOptionPane.NO_OPTION, null, button, button[0]);
                 if(JOptionPane.YES_OPTION == x){
                     String a = txtNum1.getText();
                     String b = txtNum2.getText();
