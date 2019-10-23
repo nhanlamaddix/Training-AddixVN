@@ -1,11 +1,9 @@
-//Script 1 start ="Display https://weban.jp/webapp/gen/list/itemSearchList?CMD=300&FID=300&A1=06&Z1=029&A3=2716&F1=勤務時間&V1=16&V11=1&V13=60&V26=1&V24=0"
+Script 1 start name="Display https://weban.jp/webapp/gen/list/itemSearchList?CMD=300&FID=300&A1=06&Z1=029&A3=2716&F1=勤務時間&V1=16&V11=1&V13=60&V26=1&V24=0"
 Press Ctrl+N wait=1s
 Paste "https://weban.jp/webapp/gen/list/itemSearchList?CMD=300&FID=300&A1=06&Z1=029&A3=2716&F1=勤務時間&V1=16&V11=1&V13=60&V26=1&V24=0" 
 Press Enter
-//Waitfor match template="tplanlogo.png" method=search timeout=20s
-Var mymy=""
+//Var mymy=""
 Var myUrl="https://weban.jp/webapp/gen/list/itemSearchList?CMD=300&FID=300&A1=06&Z1=029&A3=2716&F1=勤務時間&V1=16&V11=1&V13=60&V26=1&V24=0"
-
 //Var Hourly=""
 //Var Worktime=""
 //Var Treatment=""
@@ -13,7 +11,31 @@ Var myUrl="https://weban.jp/webapp/gen/list/itemSearchList?CMD=300&FID=300&A1=06
 Var countWeban=""
 Var file="D:\\data.xlsx"
 Var excel=" "
-//Excel excel file="C:\Data\data.xls" outfile="newdata.xls"
+Run "..\src\scripts\Weban.java"
+//Log {mymy}
+//Log {Hourly}
+//Log {Worktime}
+//Log {Treatment}
+//Log {Address}
+Log {countWeban}
+Log {file}
+Log {excel}
+Script 1 end
+ 
+Script 2 start name="Display https://weban.jp/webapp/gen/list/itemSearchList?CMD=300&FID=300&A1=06&Z1=029&A3=2716&F1=勤務時間&V1=16&V11=1&V13=60&V26=1&V24=0&V4=2"
+Press Ctrl+N wait=1s
+Paste "https://weban.jp/webapp/gen/list/itemSearchList?CMD=300&FID=300&A1=06&Z1=029&A3=2716&F1=勤務時間&V1=16&V11=1&V13=60&V26=1&V24=0&V4=2" 
+Press Enter
+Var mymy=""
+Var myUrl="https://weban.jp/webapp/gen/list/itemSearchList?CMD=300&FID=300&A1=06&Z1=029&A3=2716&F1=勤務時間&V1=16&V11=1&V13=60&V26=1&V24=0&V4=2"
+
+//Var Hourly=""
+//Var Worktime=""
+//Var Treatment=""
+//Var Address=""
+Var countWeban=""
+Var file="D:\\data1.xlsx"
+Var excel=" "
 Run "..\src\scripts\Weban.java"
 
 Log {mymy}
@@ -25,11 +47,4 @@ Log {mymy}
 Log {countWeban}
 Log {file}
 Log {excel}
-//if ({_EXIT_CODE} == 0) {
-//  Step "Open http://www.t-plan.com in web browser" pass
-//} else {
-//  Step "Open http://www.t-plan.com in web browser" fail
-//  Exit 1 
-//}
-Script 1 end 
-//Excel create file="D:\\Webannn.xls" sheet="Data"
+Script 2 end 

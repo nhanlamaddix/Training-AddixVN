@@ -260,20 +260,14 @@ public class Weban extends DefaultJavaTestScript  {
             //System.out.println("Treatment: " + treatment);
             //System.out.println("Address: " + address);
             
-            //getContext().setVariable("----" +countWeban+ "----");
-            //System.out.println("Hourly: " + hourly);
-            //System.out.println("Worktime: " + worktime);
-            //System.out.println("Treatment: " + treatment);
-            //System.out.println("Address: " + address);
-            
             //getContext().setVariable("Hourly", hourly);
             //getContext().setVariable("Worktime", worktime);
             //getContext().setVariable("Treatment", treatment);
             //getContext().setVariable("Address", address);
-            data.put(countWeban, new Webann(countWeban, hourly, worktime, treatment, address)); 
-            countWeban ++;
+              data.put(countWeban, new Webann(countWeban, hourly, worktime, treatment, address)); 
+              countWeban ++;
         }
-       getContext().setVariable("countWeban", countWeban);
+             getContext().setVariable("countWeban", countWeban);
         //getContext().setVariable("urll", myUrl);
        
     }
@@ -284,15 +278,12 @@ public class Weban extends DefaultJavaTestScript  {
        try {
         
         String myUrl = getContext().getVariableAsString("myUrl");
-        String naa= myUrl;
-        getContext().setVariable("mymy", naa);
+        //String naa= myUrl;
+        //getContext().setVariable("mymy", naa);
         Map<Integer, Webann> data = new HashMap<>();
-        
-        
         showWebanSmall(0, myUrl, data);
         int countWeban = Integer.parseInt(getContext().getVariableAsString("countWeban"));
-       
-       String myFile = getContext().getVariableAsString("file");
+        String myFile = getContext().getVariableAsString("file");
         String excel = getContext().getVariableAsString("excel");
         showWebanBig(myFile, excel,  data);
         
