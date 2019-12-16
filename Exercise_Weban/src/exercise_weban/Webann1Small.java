@@ -144,7 +144,7 @@ public class Webann1Small {
         }
     }
     
-    public void showWebanSmall(int countWeban, int pageNo, String myUrl, Map<Integer, Weban> data) throws IOException {
+    public void showWebanSmall(int countWeban, int pageNo, String myUrl, Map<Integer, Weban> data) throws IOException 	 {
         //Weban wb = new Weban();
         
         Document doc = Jsoup.connect(myUrl).get();

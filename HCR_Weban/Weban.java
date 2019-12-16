@@ -185,13 +185,13 @@ public class Weban extends DefaultJavaTestScript  {
             workingTime = data.get(i-1).getWorktime();
             cell = row.createCell(2,CellType.STRING);
             cell.setCellValue(workingTime);
-            //hourly wage
-            treatmentWeban = data.get(i-1).getTreatment();
-            cell = row.createCell(3,CellType.STRING);
+			//treatment
+			treatmentWeban = data.get(i-1).getTreatment();
+			cell = row.createCell(3,CellType.STRING);
             cell.setCellValue(treatmentWeban);
-            //hourly wage
-            addresss = data.get(i-1).getAddress();
-            cell = row.createCell(4,CellType.STRING);
+			//Address
+			addresss = data.get(i-1).getAddress();
+			cell = row.createCell(4,CellType.STRING);
             cell.setCellValue(addresss);
 
             rownum++;

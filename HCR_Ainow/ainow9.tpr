@@ -1,0 +1,175 @@
+Var web_name="" 
+Var url_web=""
+Var class_href=""
+Var class_title=""
+Var class_date_post=""
+Var class_source=""
+Var class_content=""
+Var click_search=""
+Var class_next_page=""
+Var domain=""
+Var replace_nxt_p=""
+Var case_display=""
+Var class_tr_dl=""
+Var click_sort=""
+Var class_gsc_cursor_page=""
+Var input_mainn="input_main.xlsx"
+Var out_file="output.xlsx"
+Var sheet_mainn="key_search"
+Var keyword=""
+Var count_keyword=0
+Var total_href=0
+Var number_pages=0
+Var project_dir={_PROJECT_DIR}
+Var check_bug=""
+Var flag=0
+Eval boolean_login=0
+Var flagimg=0
+Var url_item=""
+Var amount_href=5
+Var total_href_getted=0
+Var page_item=0
+Var no_num=0
+
+Excel "open" file="..\input_main.xlsx" id="id1"
+
+if({_EXIT_CODE} > 0){
+    Exit 1
+}
+
+Excel "select" sheet="URL" id="id1"
+
+Press Windows+r wait=1s
+Type "chrome"
+Press Enter wait=1s
+Press "Windows+UP"
+Wait "0.5s"
+
+for (index=2; {index}<=2;index={index}+1) {
+    Var number_pages=0
+    Excel select row={index} column="1" id="id1"
+    Var web_name={_EXCEL_CELL_VALUE}
+
+    Excel select row={index} column="2" id="id1"
+    Var url_web={_EXCEL_CELL_VALUE}
+    
+    Excel select row={index} column="3" id="id1"
+    Var class_href={_EXCEL_CELL_VALUE}
+
+    Excel select row={index} column="4" id="id1"
+    Var class_title={_EXCEL_CELL_VALUE}
+
+    Excel select row={index} column="5" id="id1"
+    Var class_date_post={_EXCEL_CELL_VALUE}
+
+    Excel select row={index} column="6" id="id1"
+    Var class_source={_EXCEL_CELL_VALUE}
+
+    Excel select row={index} column="7" id="id1"
+    Var class_content={_EXCEL_CELL_VALUE}
+
+    Excel select row={index} column="8" id="id1"
+    Var click_search={_EXCEL_CELL_VALUE}
+
+    Excel select row={index} column="9" id="id1"
+    Var class_next_page={_EXCEL_CELL_VALUE}
+
+    Excel select row={index} column="10" id="id1"
+    Var domain={_EXCEL_CELL_VALUE}
+
+    Excel select row={index} column="11" id="id1"
+    Var replace_nxt_p={_EXCEL_CELL_VALUE}
+
+    Excel select row={index} column="12" id="id1"
+    Var case_display={_EXCEL_CELL_VALUE}
+
+    Excel select row={index} column="13" id="id1"
+    Var class_tr_dl={_EXCEL_CELL_VALUE}
+
+    Excel select row={index} column="14" id="id1"
+    Var click_sort={_EXCEL_CELL_VALUE}
+    
+    Excel select row={index} column="15" id="id1"
+    Var class_gsc_cursor_page={_EXCEL_CELL_VALUE}
+    
+    Run "..\src\scripts\LoadListKeywords.java"
+    Log {count_keyword}
+    Var no_num=0
+    
+    for (i=1; {i}<{count_keyword}; i={i}+1) {
+        Var number_pages=0
+        Var total_href_getted=0
+        Var _SERVER_CLIPBOARD_CONTENT={url_web}
+        Press F6
+        Press "Ctrl+T"
+        Press "Ctrl+V"
+        Wait "0.5s"
+        Press "Delete"
+        Press Enter
+        Wait "10s"
+        
+     for (j=0; {j}<{click_search}; j={j}+1) {
+            Compareto "{web_name}\{web_name}{j}.png" method="search2"
+            if ({_EXIT_CODE} > 0) {
+                Var flagimg=1
+            }else{
+                Click "image" passrate="75" template="{web_name}\{web_name}{j}.png" wait="500"
+                Wait "1s"
+            }
+        }
+        
+        if({flagimg} < 1){
+            Press "Ctrl+A"
+            Press "Delete"
+            
+            Var keyword={keyword{i}}
+            Log {keyword}
+            
+            Var _SERVER_CLIPBOARD_CONTENT={keyword}
+            Press "Ctrl+V"
+            Press "Enter"
+            Wait "1s"
+            
+            Press F6
+            Press "Ctrl+C"
+            Var url_item={_SERVER_CLIPBOARD_CONTENT_TEXT}
+            Run "..\src\scripts\GetTotalPages.java"
+            Log {number_pages}
+            
+            for (k=0; {k}<{number_pages}; k={k}+1) {
+            
+                Press "Ctrl+C"
+                Var url_item={_SERVER_CLIPBOARD_CONTENT_TEXT}
+                Wait 2s
+                Run "..\src\scripts\GetDetailItem.java"
+
+                Wait 1s
+                Log {amount_href}
+                Log {total_href_getted}
+               
+                if({amount_href} < {case_display} && {total_href_getted} < {amount_href}){
+                    Press F6 count=2
+                    for (i2=0; {i2}<1000; i2={i2}+1) {
+                        Compareto "{web_name}\next_page.png" passrate="75" method="search2"
+                        if ({_EXIT_CODE} > 0) {
+                            Press "PAGEDOWN" wait="500"
+                        }else{
+                            Click "image" passrate="75" template="{web_name}\next_page.png"
+                            Wait 1s
+                            Press F6
+                            break
+                        }
+                    }
+                }else{
+                    break
+                }
+            }
+            
+        }
+        Press "Ctrl+W"
+    }
+    
+}
+Excel "close" save="false" id="id1"
+Wait "2s"
+Press "Ctrl+Shift+W"
